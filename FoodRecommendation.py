@@ -19,18 +19,17 @@ def removeIngredient(ingredients):
         return ','.join(ingredients_list)
 
 @app.route("/user/<string:ingredients>")
+@app.route("/user/<string:ingredients>/")
 def getRecipe(ingredients):
     if (ingredients == ""):
         return "NO INGREDIENTS SPECIFIED"
     searchRequest = "http://food2fork.com/api/search?key=" + API_KEY
     params = ""
-    if (ingredients != ""):
-        ingredients = "&q=" + ingredients
+    ingredients = "&q=" + ingredients
     searchRequest = searchRequest + ingredients
     try:
         content = urllib2.urlopen(searchRequest).read()
         contentDict = ast.literal_eval(content)
-        #recipes = contentDict["recipes"]
         count = contentDict["count"]
 
         while ((count == 0) and (numIngredients(ingredients) > 1)):
@@ -39,13 +38,11 @@ def getRecipe(ingredients):
             print(ingredients)
             content = urllib2.urlopen("http://food2fork.com/api/search?key=" + API_KEY + "&q=" + ingredients).read()
             contentDict = ast.literal_eval(content)
-            #recipes = contentDict["recipes"]
             count = contentDict["count"]
 
         if (count == 0):
             return "NO RECIPES FOUND"
         else:
-            #return (str(recipes[0]))
             return str(contentDict["recipes"][0])
     except:
         return "Error"
