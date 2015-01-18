@@ -14,6 +14,8 @@
 
     <!-- Custom CSS -->
     <link href="/static/css/the-big-picture.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -56,13 +58,13 @@
         
 
         <div class="row">
-            <form action="" method="post" name="recipe">
+            <!-- <form action="" method="post" name="recipe"> -->
                 <h1 class="col-md-12" style="color:blue">
                     ENTER A RECIPE
                 </h1>
                 <input type="text" class="col-md-3" id="recipeAdd" placeholder="Recipe name">
-                <p><input type="submit" value="Add recipe"></p>
-            </form>
+                <p><button onClick="sendReq()"> Add Recipe</button></p>
+            <!-- </form> -->
         </div>
 
         <div class="row">
@@ -71,7 +73,7 @@
                    <h1 class="col-md-12" style="color:blue">
                       RESULTING RECIPES
                    </h1> 
-                   <tbody>
+                   <tbody id="RecipeTable">
                         <!-- {% for post in posts %}
                         <tr>
                             <td class="active">{{post.name}}</td>
@@ -79,11 +81,11 @@
                             <td class="active">{{post.image}}</td>
                         </tr>
                         {% endfor %} -->
-                        <tr><td class="active">Recipe1</td><td class="active">Description1</td></tr>
+                        <!-- <tr><td class="active">Recipe1</td><td class="active">Description1</td></tr>
                         <tr><td class="active">Recipe2</td><td class="active">Description2</td></tr>
                         <tr><td class="active">Recipe3</td><td class="active">Description3</td></tr>
                         <tr><td class="active">Recipe4</td><td class="active">Description3</td></tr>
-                        <tr><td class="active">Recipe5</td><td class="active">Description3</td></tr>
+                        <tr><td class="active">Recipe5</td><td class="active">Description3</td></tr> -->
                    </tbody> 
                 </table>                	
 	        </div>
@@ -101,5 +103,21 @@
 
 </body>
 
+<script>
+    var id = $('#recipeAdd');
+    var table = $('#RecipeTable');
+
+    function sendReq(){
+        // alert(id.val());
+        $.ajax({
+            url: 'user/' + id.val(),
+            method: 'GET',
+            success: function(response){
+                alert(response);
+                $()
+            }
+        });
+    };
+</script>
 </html>
 
