@@ -52,7 +52,10 @@ def getRecipe(ingredients):
             searchGet = BASE_GET + API_KEY + "&rId=" + finalDict["recipe_id"]
             finalContentDictStr = urllib2.urlopen(searchGet).read()
             finalContentDict = ast.literal_eval(finalContentDictStr)
-            completeDict = BASE_RESULT
+            completeDict = {"Name" : "",
+                            "URL" : "",
+                            "Ingredients" : "",
+                            "Image_Url" : ""}
             completeDict["Name"] = finalContentDict["recipe"]["title"]
             completeDict["URL"] = finalContentDict["recipe"]["source_url"]
             completeDict["Ingredients"] = str(finalContentDict["recipe"]["ingredients"])
