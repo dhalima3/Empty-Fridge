@@ -56,14 +56,14 @@
     <!-- Page Content -->
     <div class="container">
         
-
-        <div class="row">
-            <!-- <form action="" method="post" name="recipe"> -->
-                <h1 class="col-md-12" style="color:blue">
+        <h1 style="color:black; background:white; display: inline-block">
                     ENTER A INGREDIENT
-                </h1>
+        </h1>
+        
+        <div class="row col-md-12">
+            <!-- <form action="" method="post" name="recipe"> -->
                 <input type="text" class="col-md-3" id="recipeAdd" placeholder="Ingredient name">
-                <p><button onClick="addReq()"> Add Recipe</button>
+                <p><button onClick="addReq()"> Add Ingredient</button>
                 <button onClick="sendReq()"> Find Recipe</button></p>
             <!-- </form> -->
         </div>
@@ -75,9 +75,6 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <table class="table table-striped">
-                   <h1 class="col-md-12" style="color:blue">
-                      RESULTING RECIPE
-                   </h1> 
                    <tbody id="RecipeTable">
                         <!-- {% for post in posts %}
                         <tr>
@@ -89,6 +86,7 @@
                         <tr><td class="active">Image</td><td class="active" id="imageTable"></td></tr>
                         <tr><td class="active">Name</td><td class="active" id="nameTable"></td></tr>
                         <tr><td class="active">Ingredients</td><td class="active" id="ingredientsTable"></td></tr>
+                        <tr><td class="active">Recipe</td><td class="active" id="recipeTable"></td></tr>
                    </tbody> 
                 </table>                	
 	        </div>
@@ -113,6 +111,7 @@
         }
         var tempInput = $('#recipeAdd');
         idBuilder = idBuilder.concat(tempInput.val());
+        alert("Ingredient Added");
     }
 
     function sendReq(){
@@ -125,11 +124,13 @@
                 var image = json.Image_Url;
                 var name = json.Name;
                 var ingredients = json.Ingredients;
+                var url = json.URL;
                 // alert(image.text());
                 // $(imageTable).append(response);
                 $(imageTable).append('<img src="' + image + '"">');
                 $(nameTable).append(name);
                 $(ingredientsTable).append(ingredients);
+                $(recipeTable).append('<a href="' + url + '"">' + name + ' Recipe</a>')
             }
         });
         idBuilder = "";
