@@ -48,7 +48,7 @@ def getRecipe(ingredients):
             #return (str(recipes[0]))
             return str(contentDict["recipes"][0])
     except:
-        print "Error"
+        return "Error"
 
 if __name__ == "__main__":
     app.run()
