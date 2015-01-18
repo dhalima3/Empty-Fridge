@@ -57,8 +57,8 @@
 
         <div class="row">
             <form action="" method="post" name="recipe">
-                <h1 class="col-md-12" style="color:gray">
-                    Enter a recipe
+                <h1 class="col-md-12" style="color:blue">
+                    ENTER A RECIPE
                 </h1>
                 <input type="text" class="col-md-3" id="recipeAdd" placeholder="Recipe name">
                 <p><input type="submit" value="Add recipe"></p>
@@ -68,7 +68,17 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <table class="table table-striped">
+                   <h1 class="col-md-12" style="color:blue">
+                      RESULTING RECIPES
+                   </h1> 
                    <tbody>
+                        <!-- {% for post in posts %}
+                        <tr>
+                            <td class="active">{{post.name}}</td>
+                            <td class="active">{{post.desc}}</td>
+                            <td class="active">{{post.image}}</td>
+                        </tr>
+                        {% endfor %} -->
                         <tr><td class="active">Recipe1</td><td class="active">Description1</td></tr>
                         <tr><td class="active">Recipe2</td><td class="active">Description2</td></tr>
                         <tr><td class="active">Recipe3</td><td class="active">Description3</td></tr>
