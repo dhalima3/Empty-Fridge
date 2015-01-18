@@ -116,6 +116,10 @@
 
     function sendReq(){
         // alert(id.val());
+        $(imageTable).empty();
+        $(nameTable).empty();
+        $(ingredientsTable).empty();
+        $(recipeTable).empty();
         $.ajax({
             url: 'user/' + idBuilder,
             method: 'GET',
