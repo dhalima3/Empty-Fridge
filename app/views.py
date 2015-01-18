@@ -1,6 +1,6 @@
 from flask import render_template
 from app import app
-import urllib2, ast
+import urllib2, ast, json
 
 @app.route('/')
 @app.route('/index')
@@ -48,7 +48,7 @@ def removeIngredient(ingredients):
 # @app.route("/user/<string:ingredients>/")
 def getRecipe(ingredients):
     if (ingredients == ""):
-        return str(BASE_RESULT)
+        return json.dumps(BASE_RESULT)
     searchRequest = BASE_SEARCH + API_KEY
     ingredients = "&q=" + ingredients
     searchRequest = searchRequest + ingredients
@@ -64,7 +64,7 @@ def getRecipe(ingredients):
             count = contentDict["count"]
 
         if (count == 0):
-            return str(BASE_RESULT)
+            return json.dumps(BASE_RESULT)
         else:
             finalDict = contentDict["recipes"][0]
             searchGet = BASE_GET + API_KEY + "&rId=" + finalDict["recipe_id"]
@@ -76,9 +76,9 @@ def getRecipe(ingredients):
                             "Image_Url" : ""}
             completeDict["Name"] = finalContentDict["recipe"]["title"]
             completeDict["URL"] = finalContentDict["recipe"]["source_url"]
-            completeDict["Ingredients"] = str(finalContentDict["recipe"]["ingredients"])
+            completeDict["Ingredients"] = finalContentDict["recipe"]["ingredients"]
             completeDict["Image_Url"] = finalContentDict["recipe"]["image_url"]
-            return str(completeDict)
+            return json.dumps(completeDict)
     except:
-        return str(BASE_RESULT)
+        return json.dumps(BASE_RESULT)
 

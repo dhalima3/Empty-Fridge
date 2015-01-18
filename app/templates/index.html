@@ -81,11 +81,9 @@
                             <td class="active">{{post.image}}</td>
                         </tr>
                         {% endfor %} -->
-                        <!-- <tr><td class="active">Recipe1</td><td class="active">Description1</td></tr>
-                        <tr><td class="active">Recipe2</td><td class="active">Description2</td></tr>
-                        <tr><td class="active">Recipe3</td><td class="active">Description3</td></tr>
-                        <tr><td class="active">Recipe4</td><td class="active">Description3</td></tr>
-                        <tr><td class="active">Recipe5</td><td class="active">Description3</td></tr> -->
+                        <tr><td class="active">Image</td><td class="active" id="imageTable"></td></tr>
+                        <tr><td class="active">Name</td><td class="active" id="nameTable"></td></tr>
+                        <tr><td class="active">Ingredients</td><td class="active" id="ingredientsTable"></td></tr>
                    </tbody> 
                 </table>                	
 	        </div>
@@ -95,17 +93,13 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
 </body>
 
 <script>
     var id = $('#recipeAdd');
-    var table = $('#RecipeTable');
+    var imageTable = $('#imageTable');
+    var nameTable = $('#nameTable');
+    var ingredientsTable = $('#ingredientsTable');
 
     function sendReq(){
         // alert(id.val());
@@ -113,8 +107,14 @@
             url: 'user/' + id.val(),
             method: 'GET',
             success: function(response){
-                alert(response);
-                $()
+                var json = JSON.parse(response);
+                var image = json.Image_Url;
+                var name = json.Name;
+                var ingredients = json.Ingredients;
+                // alert(image.text());
+                // $(imageTable).append(response);
+                $(imageTable).append('<img src="' + image + '"">');
+                $(nameTable).append(name);
             }
         });
     };
