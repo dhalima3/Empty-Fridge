@@ -56,21 +56,20 @@
     <!-- Page Content -->
     <div class="container">
         
-
-        <div class="row">
-            <!-- <form action="" method="post" name="recipe"> -->
-                <h1 class="col-md-12" style="color:blue">
+        <h1 style="color:black; background:white; display: inline-block">
                     ENTER A RECIPE
-                </h1>
+        </h1>
+        
+        <div class="row col-md-12">
+            <!-- <form action="" method="post" name="recipe"> -->
                 <input type="text" class="col-md-3" id="recipeAdd" placeholder="Recipe name">
                 <p><button onClick="sendReq()"> Add Recipe</button></p>
             <!-- </form> -->
         </div>
 
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <table class="table table-striped">
-                   <h1 class="col-md-12" style="color:blue">
+        <div class="row col-md-12">
+                <table class="table col-md-12">
+                   <h1 style="color:black; background:white; display: inline-block">
                       RESULTING RECIPES
                    </h1> 
                    <tbody id="RecipeTable">
@@ -84,9 +83,9 @@
                         <tr><td class="active">Image</td><td class="active" id="imageTable"></td></tr>
                         <tr><td class="active">Name</td><td class="active" id="nameTable"></td></tr>
                         <tr><td class="active">Ingredients</td><td class="active" id="ingredientsTable"></td></tr>
+                        <tr><td class="active">Recipe</td><td class="active" id="recipeTable"></td></tr>
                    </tbody> 
                 </table>                	
-	        </div>
         </div>
         <!-- /.row -->
     </div>
@@ -107,15 +106,18 @@
             url: 'user/' + id.val(),
             method: 'GET',
             success: function(response){
+                console.log(response);
                 var json = JSON.parse(response);
                 var image = json.Image_Url;
                 var name = json.Name;
                 var ingredients = json.Ingredients;
+                var recipe = json.URL;
                 // alert(image.text());
                 // $(imageTable).append(response);
                 $(imageTable).append('<img src="' + image + '"">');
                 $(nameTable).append(name);
                 $(ingredientsTable).append(ingredients);
+                $(recipeTable).append('<a href="' + recipe + '">' + name + ' Recipe</a>');
             }
         });
     };
