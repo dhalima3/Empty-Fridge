@@ -2,12 +2,13 @@ import urllib2, ast
 from flask import Flask
 app = Flask(__name__)
 
+API_KEY = "8ded784ee30fccebd50438b3e1db5866"
+
 def numIngredients(ingredients):
-    ingredients_list = ingredients.split(",")
-    if (ingredients_list[0] == ''):
+    if (ingredients == ""):
         return 0
-    else:
-        return len(ingredients_list)
+    ingredients_list = ingredients.split(",")
+    return len(ingredients_list)
 
 def removeIngredient(ingredients):
     ingredients_list = ingredients.split(",")
@@ -18,24 +19,36 @@ def removeIngredient(ingredients):
         return ','.join(ingredients_list)
 
 @app.route("/user/<string:ingredients>")
-#@app.route("/user/")
 def getRecipe(ingredients):
-    content = urllib2.urlopen("http://food2fork.com/api/search?key=8ded784ee30fccebd50438b3e1db5866&q=" + ingredients).read()
-    contentDict = ast.literal_eval(content)
-    recipes = contentDict["recipes"]
-
-    while ((len(recipes) == 0) and (numIngredients(ingredients) > 1)):
-        print("Retrying")
-        ingredients = removeIngredient(ingredients)
-        print(ingredients)
-        content = urllib2.urlopen("http://food2fork.com/api/search?key=8ded784ee30fccebd50438b3e1db5866&q=" + ingredients).read()
+    if (ingredients == ""):
+        return "NO INGREDIENTS SPECIFIED"
+    searchRequest = "http://food2fork.com/api/search?key=" + API_KEY
+    params = ""
+    if (ingredients != ""):
+        ingredients = "&q=" + ingredients
+    searchRequest = searchRequest + ingredients
+    try:
+        content = urllib2.urlopen(searchRequest).read()
         contentDict = ast.literal_eval(content)
-        recipes = contentDict["recipes"]
+        #recipes = contentDict["recipes"]
+        count = contentDict["count"]
 
-    if (len(recipes) == 0):
-        return "NO RECIPES FOUND"
-    else:
-        return (str(recipes[0]))
+        while ((count == 0) and (numIngredients(ingredients) > 1)):
+            print("Retrying")
+            ingredients = removeIngredient(ingredients)
+            print(ingredients)
+            content = urllib2.urlopen("http://food2fork.com/api/search?key=" + API_KEY + "&q=" + ingredients).read()
+            contentDict = ast.literal_eval(content)
+            #recipes = contentDict["recipes"]
+            count = contentDict["count"]
+
+        if (count == 0):
+            return "NO RECIPES FOUND"
+        else:
+            #return (str(recipes[0]))
+            return str(contentDict["recipes"][0])
+    except:
+        print "Error"
 
 if __name__ == "__main__":
     app.run()
