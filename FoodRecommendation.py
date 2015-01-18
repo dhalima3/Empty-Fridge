@@ -19,7 +19,7 @@ def numIngredients(ingredients):
 
 def removeIngredient(ingredients):
     ingredients_list = ingredients.split(",")
-    if (ingredients_list[0] == ''): # No ingredients
+    if (ingredients_list[0] == ''): # No ingredients 
         return ingredients
     else:
         ingredients_list.pop(0)
