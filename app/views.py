@@ -45,7 +45,7 @@ def removeIngredient(ingredients):
         return ','.join(ingredients_list)
 
 @app.route("/user/<ingredients>")
-# @app.route("/user/<string:ingredients>/")
+@app.route("/user/<string:ingredients>/")
 def getRecipe(ingredients):
     if (ingredients == ""):
         return json.dumps(BASE_RESULT)
