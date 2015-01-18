@@ -3,6 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 
 API_KEY = "8ded784ee30fccebd50438b3e1db5866"
+BASE_SEARCH = "http://food2fork.com/api/search?key="
 
 def numIngredients(ingredients):
     if (ingredients == ""):
@@ -23,7 +24,7 @@ def removeIngredient(ingredients):
 def getRecipe(ingredients):
     if (ingredients == ""):
         return "NO INGREDIENTS SPECIFIED"
-    searchRequest = "http://food2fork.com/api/search?key=" + API_KEY
+    searchRequest = BASE_SEARCH + API_KEY
     params = ""
     ingredients = "&q=" + ingredients
     searchRequest = searchRequest + ingredients
@@ -33,10 +34,8 @@ def getRecipe(ingredients):
         count = contentDict["count"]
 
         while ((count == 0) and (numIngredients(ingredients) > 1)):
-            print("Retrying")
             ingredients = removeIngredient(ingredients)
-            print(ingredients)
-            content = urllib2.urlopen("http://food2fork.com/api/search?key=" + API_KEY + "&q=" + ingredients).read()
+            content = urllib2.urlopen(BASE_SEARCH + API_KEY + "&q=" + ingredients).read()
             contentDict = ast.literal_eval(content)
             count = contentDict["count"]
 
