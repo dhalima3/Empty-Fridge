@@ -18,18 +18,9 @@
 
 <body>
     <div class="content">
-      
-       <tbody>
-          {% for line in x %}
-          <tr>
-              <td>{{ x.date|tojson|safe }}</td>
-              <td>{{ x.users }}</td>
-          </tr>
-          {% endfor %}
-       </tbody> 
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -39,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">Recipe Recommender</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,7 +39,7 @@
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#">Team</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
@@ -62,10 +53,30 @@
 
     <!-- Page Content -->
     <div class="container">
+        
+
         <div class="row">
-            <div class="col-md-6 col-sm-12">
-            	
-	    </div>
+            <form action="" method="post" name="recipe">
+                <h1 class="col-md-12" style="color:gray">
+                    Enter a recipe
+                </h1>
+                <input type="text" class="col-md-3" id="recipeAdd" placeholder="Recipe name">
+                <p><input type="submit" value="Add recipe"></p>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <table class="table table-striped">
+                   <tbody>
+                        <tr><td class="active">Recipe1</td><td class="active">Description1</td></tr>
+                        <tr><td class="active">Recipe2</td><td class="active">Description2</td></tr>
+                        <tr><td class="active">Recipe3</td><td class="active">Description3</td></tr>
+                        <tr><td class="active">Recipe4</td><td class="active">Description3</td></tr>
+                        <tr><td class="active">Recipe5</td><td class="active">Description3</td></tr>
+                   </tbody> 
+                </table>                	
+	        </div>
         </div>
         <!-- /.row -->
     </div>
