@@ -4,6 +4,12 @@ app = Flask(__name__)
 
 API_KEY = "8ded784ee30fccebd50438b3e1db5866"
 BASE_SEARCH = "http://food2fork.com/api/search?key="
+BASE_GET = "http://food2fork.com/api/get?key="
+
+BASE_RESULT = {"Name" : "",
+               "URL" : "",
+               "Ingredients" : "",
+               "Image_Url" : ""}
 
 def numIngredients(ingredients):
     if (ingredients == ""):
@@ -23,7 +29,7 @@ def removeIngredient(ingredients):
 @app.route("/user/<string:ingredients>/")
 def getRecipe(ingredients):
     if (ingredients == ""):
-        return "NO INGREDIENTS SPECIFIED"
+        return str(BASE_RESULT)
     searchRequest = BASE_SEARCH + API_KEY
     params = ""
     ingredients = "&q=" + ingredients
@@ -40,11 +46,20 @@ def getRecipe(ingredients):
             count = contentDict["count"]
 
         if (count == 0):
-            return "NO RECIPES FOUND"
+            return str(BASE_RESULT)
         else:
-            return str(contentDict["recipes"][0])
+            finalDict = contentDict["recipes"][0]
+            searchGet = BASE_GET + API_KEY + "&rId=" + finalDict["recipe_id"]
+            finalContentDictStr = urllib2.urlopen(searchGet).read()
+            finalContentDict = ast.literal_eval(finalContentDictStr)
+            completeDict = BASE_RESULT
+            completeDict["Name"] = finalContentDict["recipe"]["title"]
+            completeDict["URL"] = finalContentDict["recipe"]["source_url"]
+            completeDict["Ingredients"] = str(finalContentDict["recipe"]["ingredients"])
+            completeDict["Image_Url"] = finalContentDict["recipe"]["image_url"]
+            return str(completeDict)
     except:
-        return "Error"
+        return str(BASE_RESULT)
 
 if __name__ == "__main__":
     app.run()
