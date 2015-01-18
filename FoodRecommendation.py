@@ -31,7 +31,6 @@ def getRecipe(ingredients):
     if (ingredients == ""):
         return str(BASE_RESULT)
     searchRequest = BASE_SEARCH + API_KEY
-    params = ""
     ingredients = "&q=" + ingredients
     searchRequest = searchRequest + ingredients
     try:
